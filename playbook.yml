@@ -1,0 +1,2 @@
+- hosts: comainu
+  become: yes
