@@ -1,0 +1,5 @@
+---
+mysql_databases:
+  - name: comainu
+    collation: utf8_general_ci
+    encoding: utf8

@@ -1,2 +1,5 @@
 - hosts: comainu
-  become: yes
+  roles:
+    - role: geerlingguy.mysql
+      become: yes
+
