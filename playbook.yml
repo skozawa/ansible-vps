@@ -6,3 +6,5 @@
       become: yes
     - role: nbz4live.php-fpm
       become: yes
+    - role: geerlingguy.php-mysql
+      become: yes
