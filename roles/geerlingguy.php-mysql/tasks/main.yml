@@ -15,7 +15,6 @@
     state: present
     enablerepo: "{{ php_enablerepo }}"
   notify:
-    - restart webserver
     - restart php-fpm
   when: ansible_os_family == 'RedHat'
 
@@ -24,6 +23,5 @@
     name: "{{ php_mysql_package }}"
     state: present
   notify:
-    - restart webserver
     - restart php-fpm
   when: ansible_os_family == 'Debian'
