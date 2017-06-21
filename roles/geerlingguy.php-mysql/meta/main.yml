@@ -1,7 +1,4 @@
 ---
-dependencies:
-  - geerlingguy.php
-
 galaxy_info:
   author: geerlingguy
   description: PHP MySQL support for Linux.
