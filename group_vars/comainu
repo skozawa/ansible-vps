@@ -1,5 +1,21 @@
 ---
+# geerlingguy.mysql
 mysql_databases:
   - name: comainu
     collation: utf8_general_ci
     encoding: utf8
+
+# darthwade.wordpress
+wp_version: 4.8
+wp_install_dir: /var/www/comainu
+wp_db_name: wp_comainu
+wp_db_user: root
+wp_db_password: root
+
+# nbz4live.php-fpm
+php_fpm_pools:
+  - name: comainu
+    user: www-data
+    group: www-data
+    listen: 127.0.0.1:9000
+    chdir: /var/www/comainu

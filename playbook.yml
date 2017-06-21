@@ -2,4 +2,7 @@
   roles:
     - role: geerlingguy.mysql
       become: yes
-
+    - role: darthwade.wordpress
+      become: yes
+    - role: nbz4live.php-fpm
+      become: yes
