@@ -23,3 +23,18 @@ php_fpm_pools:
 
 # geerlingguy.php-mysql
 php_mysql_package: php{{ php_fpm_version|int }}-mysql
+
+# jdauphant.nginx
+nginx_sites:
+  wordpress:
+    - listen 80
+    - server_name localhost
+    - root /var/www/comainu
+    - index index.php
+    - location ~* /wp-config.php { deny all; }
+    - location ~ \.php$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+      }

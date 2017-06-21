@@ -8,3 +8,5 @@
       become: yes
     - role: geerlingguy.php-mysql
       become: yes
+    - role: jdauphant.nginx
+      become: yes
