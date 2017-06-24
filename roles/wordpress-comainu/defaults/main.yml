@@ -1,0 +1,5 @@
+---
+wp_comainu_import_sql_file: files/dump.sql.gz
+wp_comainu_db_name: wp_comainu
+wp_comainu_db_login_user: root
+wp_comainu_db_login_password: root

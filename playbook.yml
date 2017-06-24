@@ -10,3 +10,5 @@
       become: yes
     - role: jdauphant.nginx
       become: yes
+    - role: wordpress-comainu
+      become: yes

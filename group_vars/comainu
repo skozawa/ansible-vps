@@ -1,4 +1,9 @@
 ---
+# all
+server_name: localhost
+server_port: 3000
+server_url: http://localhost:3000
+
 # geerlingguy.mysql
 mysql_databases:
   - name: wp_comainu
@@ -27,10 +32,11 @@ php_mysql_package: php{{ php_fpm_version|int }}-mysql
 # jdauphant.nginx
 nginx_sites:
   wordpress:
-    - listen 80
-    - server_name localhost
+    - listen {{server_port}}
+    - server_name {{server_name}}
     - root /var/www/comainu
     - index index.php
+    - try_files $uri $uri/ /index.php?q=$uri&$args
     - location ~* /wp-config.php { deny all; }
     - location ~ \.php$ {
         fastcgi_pass 127.0.0.1:9000;
@@ -38,3 +44,9 @@ nginx_sites:
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
       }
+
+# wordpress-comainu
+wp_comainu_db_name: "{{ wp_db_name }}"
+wp_comainu_db_login_user: "{{ wp_db_user }}"
+wp_comainu_db_login_password: "{{ wp_db_password }}"
+wp_comainu_url: "{{server_url}}"

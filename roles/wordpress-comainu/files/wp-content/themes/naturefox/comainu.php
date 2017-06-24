@@ -1,0 +1,94 @@
+<?php
+
+define("BASE_URI", "/var/www/html/Comainu");
+
+function test() {
+	print("test");
+}
+
+
+function exec_comainu ( $sentence ) {
+	$filename = date('YmdHis');
+	$infile = BASE_URI."/inputs/".$filename.".txt";
+	$outfile = BASE_URI."/outputs/".$filename.".txt.lout";
+	write_sentence($infile, $sentence);
+	comainu_method($filename);
+	$longs = read_result_from_file($outfile);
+	echo_longs($longs);
+}
+
+function comainu_method ( $filename ) {
+	$cmd = "sh ".BASE_URI."/comainu.sh ".$filename.".txt";
+	system($cmd);
+}
+
+function echo_longs ( $longs ) {
+	echo "<h3>長単位解析結果</h3>";
+	//echo var_dump($longs);
+	$sitem = array("書辞形","発音形","語彙素読み","語彙素","品詞","活用型","活用形");
+	$litem = array("品詞","活用型","活用形","語彙素読み","語彙素","書辞形");
+	echo "<div class='long_result'>\n";
+	echo "<table>\n";
+	echo "<tr><td></td><th colspan=".sizeof($sitem).">短単位</th>\n";
+	echo "<th colspan=".sizeof($litem).">長単位</th></tr>\n";
+	echo "<tr><th>文境界</th>";
+	foreach ( $sitem as $i => $item ) {
+		echo "<th>".$item."</th>";
+	}
+	foreach ( $litem as $i => $item ) {
+		echo "<th>".$item."</th>";
+	}
+	echo "</tr>\n";
+	
+	foreach ( $longs as $i => $long ) {
+		$first = split("\t", $long[0]);
+		echo "<tr><td>".$first[0]."</td>";
+		for ( $i = 1; $i < sizeof($sitem)+1; $i++ ) {
+			echo "<td>".$first[$i]."</td>";
+		}
+		for ( $i = sizeof($sitem)+1; $i < sizeof($sitem)+sizeof($litem)+1; $i++ ) {
+			if($first[$i] === "*") {
+				$first[$i] = "";
+			}
+			echo "<td rowspan=".sizeof($long).">".$first[$i]."</td>";
+		}
+		echo "</tr>\n";
+		
+		for ( $i = 1; $i < sizeof($long); $i++ ) {
+			$items = split("\t",$long[$i]);
+			echo "<tr>";
+			for ( $j = 0; $j < sizeof($sitem)+1; $j++ ) {
+				echo "<td>".$items[$j]."</td>";
+			}
+			echo "</tr>\n";
+		}
+	}
+	echo "</table>\n";
+	echo "</div>\n";
+}
+
+function read_result_from_file ( $outfile ) {
+	$fp = fopen($outfile, "r");
+	
+	$longs = array();
+	while(!feof($fp)) {
+		$line = fgets($fp);
+		$items = split("\t",$line);
+		if(preg_match("/^EOS/", $items[0]) || $items[8] !== "*") {
+			$longs[sizeof($longs)][0] = $line;
+		} else {
+			$longs[sizeof($longs)-1][sizeof($longs[sizeof($longs)-1])] = $line;
+		}
+	}
+	fclose($fp);
+	
+	return $longs;
+}
+
+function write_sentence ( $file, $sentence ) {
+	$fp = fopen($file, "w");
+	fwrite($fp, $sentence."\n");
+	fclose($fp);
+}
+
+?>
