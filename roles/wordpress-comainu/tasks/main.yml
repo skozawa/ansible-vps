@@ -8,16 +8,16 @@
 
 - name: Synchronize import file
   synchronize:
-    src: "{{wp_comainu_import_sql_file}}"
+    src: "{{wpc_import_sql_file}}"
     dest: /tmp/dump.sql.gz
 
 - name: Import sql
   mysql_db:
-    name: "{{wp_comainu_db_name}}"
+    name: "{{wpc_db_name}}"
     state: import
-    login_user: "{{wp_comainu_db_login_user}}"
-    login_password: "{{wp_comainu_db_login_password}}"
+    login_user: "{{wpc_db_login_user}}"
+    login_password: "{{wpc_db_login_password}}"
     target: /tmp/dump.sql.gz
 
 - name: Replace siteurl and home
-  command: mysql -u{{wp_comainu_db_login_user}} -p{{wp_comainu_db_login_password}} {{wp_comainu_db_name}} -e "UPDATE wp_options SET option_value='{{wp_comainu_url}}' WHERE option_name IN ('siteurl','home')"
+  command: mysql -u{{wpc_db_login_user}} -p{{wpc_db_login_password}} {{wpc_db_name}} -e "UPDATE wp_options SET option_value='{{wpc_url}}' WHERE option_name IN ('siteurl','home')"

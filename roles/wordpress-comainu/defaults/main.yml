@@ -1,5 +1,8 @@
 ---
-wp_comainu_import_sql_file: files/dump.sql.gz
-wp_comainu_db_name: wp_comainu
-wp_comainu_db_login_user: root
-wp_comainu_db_login_password: root
+wpc_install_dir: /var/www/comainu
+wpc_comainu_dir: /var/www/comainu/Comainu
+wpc_import_sql_file: files/dump.sql.gz
+wpc_db_name: wp_comainu
+wpc_db_login_user: root
+wpc_db_login_password: root
+wpc_url: http://localhost
