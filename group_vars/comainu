@@ -3,6 +3,7 @@
 server_name: localhost
 server_port: 3000
 server_url: http://localhost:3000
+install_dir: /var/www/comainu
 
 # geerlingguy.mysql
 mysql_databases:
@@ -12,7 +13,7 @@ mysql_databases:
 
 # darthwade.wordpress
 wp_version: 4.8
-wp_install_dir: /var/www/comainu
+wp_install_dir: "{{install_dir}}"
 wp_db_name: wp_comainu
 wp_db_user: root
 wp_db_password: root
@@ -24,7 +25,7 @@ php_fpm_pools:
     user: www-data
     group: www-data
     listen: 127.0.0.1:9000
-    chdir: /var/www/comainu
+    chdir: "{{install_dir}}"
 
 # geerlingguy.php-mysql
 php_mysql_package: php{{ php_fpm_version|int }}-mysql
@@ -34,7 +35,7 @@ nginx_sites:
   wordpress:
     - listen {{server_port}}
     - server_name {{server_name}}
-    - root /var/www/comainu
+    - root {{install_dir}}
     - index index.php
     - try_files $uri $uri/ /index.php?q=$uri&$args
     - location ~* /wp-config.php { deny all; }
