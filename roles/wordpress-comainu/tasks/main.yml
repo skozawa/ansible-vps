@@ -21,3 +21,30 @@
 
 - name: Replace siteurl and home
   command: mysql -u{{wpc_db_login_user}} -p{{wpc_db_login_password}} {{wpc_db_name}} -e "UPDATE wp_options SET option_value='{{wpc_url}}' WHERE option_name IN ('siteurl','home')"
+
+- name: Copy comainu.sh
+  template:
+    src: comainu.sh.j2
+    dest: "{{wpc_install_dir}}/comainu.sh"
+    mode: 0744
+
+- name: Copy comainu.php
+  template:
+    src: comainu.php.j2
+    dest: "{{wpc_install_dir}}/wp-content/themes/naturefox/comainu.php"
+
+- name: Prepare inputs/outputs directories
+  file:
+    path: "{{wpc_install_dir}}/{{item}}"
+    state: directory
+    mode: 0755
+  with_items:
+    - inputs
+    - outputs
+
+- name: Chnage Owner
+  file:
+    path: "{{wpc_install_dir}}"
+    owner: www-data
+    group: root
+    recurse: yes
