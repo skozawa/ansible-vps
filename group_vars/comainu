@@ -45,6 +45,10 @@ nginx_sites:
         include fastcgi_params;
       }
 
+# comainu
+comainu_install_dir: "{{wp_install_dir}}/Comainu"
+comainu_model_dir: "{{comainu_install_dir}}/train"
+
 # wordpress-comainu
 wpc_install_dir: "{{wp_install_dir}}"
 wpc_comainu_dir: "{{comainu_install_dir}}"

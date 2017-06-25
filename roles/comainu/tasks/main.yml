@@ -1,0 +1,74 @@
+---
+- name: Ensure comainu's dependencies are installed (RedHat).
+  package: "name={{ item }} state=installed"
+  with_items:
+    - gcc
+    - wget
+    - curl
+    - tar
+    - bzip2
+    - patch
+    - unzip
+    - sed
+    - git
+    - gcc-c++
+  when: ansible_os_family == 'RedHat'
+
+- name: Ensure comainu's dependencies are installed (Debian).
+  apt: "name={{ item }} state=installed"
+  with_items:
+    - gcc
+    - wget
+    - curl
+    - tar
+    - bzip2
+    - patch
+    - unzip
+    - sed
+    - git
+    - build-essential
+  when: ansible_os_family == 'Debian'
+
+- name: Fetch Comainu
+  git:
+    repo: https://github.com/skozawa/Comainu.git
+    dest: "{{comainu_install_dir}}"
+
+- name: Check train directory
+  stat: path={{comainu_model_dir}}
+  register: train_dir
+
+- name: Download Comainu models
+  command: wget https://ja.osdn.net/frs/redir.php?m=jaist&f=/comainu/63950/Comainu-0.72-model.tgz -O Comainu-model.tgz
+  args:
+    chdir: "{{comainu_install_dir}}"
+  when: not train_dir.stat.exists
+
+- name: Unarchive models
+  command: tar zxf Comainu-model.tgz
+  args:
+    chdir: "{{comainu_install_dir}}"
+  when: not train_dir.stat.exists
+
+- name: Move model directory
+  command: mv Comainu-0.72/train {{comainu_model_dir}}
+  args:
+    chdir: "{{comainu_install_dir}}"
+  when: not train_dir.stat.exists
+
+- name: Remove model directory
+  command: rm -rf Comainu-0.72
+  args:
+    chdir: "{{comainu_install_dir}}"
+  when: not train_dir.stat.exists
+
+- name: Remove model tgz
+  command: rm Comainu-model.tgz
+  args:
+    chdir: "{{comainu_install_dir}}"
+  when: not train_dir.stat.exists
+
+- name: Setup Comainu
+  command: sh ./script/setup.sh
+  args:
+    chdir: "{{comainu_install_dir}}"
