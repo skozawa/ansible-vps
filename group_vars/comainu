@@ -10,13 +10,18 @@ mysql_databases:
   - name: wp_comainu
     collation: utf8_general_ci
     encoding: utf8
+mysql_users:
+  - name: comainu
+    host: "%"
+    password: comainu
+    priv: "wp_comainu.*:ALL"
 
 # darthwade.wordpress
 wp_version: 4.8
 wp_install_dir: "{{install_dir}}"
 wp_db_name: wp_comainu
-wp_db_user: root
-wp_db_password: root
+wp_db_user: comainu
+wp_db_password: comainu
 
 # nbz4live.php-fpm
 php_fpm_version: 5.6
