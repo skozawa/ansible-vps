@@ -1,16 +1,26 @@
 - hosts: comainu
+  become: yes
   roles:
+    - role: nbz4live.php-fpm # have to be install first
+      php_fpm_version: 5.6
+      php_fpm_pools: # dummy
+        - name: comainu
+          user: www-data
+          group: www-data
+          listen: 127.0.0.1:9000
+          chdir: /
     - role: geerlingguy.mysql
-      become: yes
     - role: darthwade.wordpress
-      become: yes
     - role: nbz4live.php-fpm
-      become: yes
+      php_fpm_version: 5.6
+      php_fpm_pools:
+        - name: comainu
+          user: www-data
+          group: www-data
+          listen: 127.0.0.1:9000
+          chdir: "{{install_dir}}"
     - role: geerlingguy.php-mysql
-      become: yes
     - role: jdauphant.nginx
-      become: yes
     - role: comainu
-      become: yes
     - role: wordpress-comainu
-      become: yes
+
