@@ -1,10 +1,8 @@
 ---
 - name: Synchronize wp-content
-  synchronize:
-    src: files/wp-content
-    dest: /var/www/comainu
-    recursive: yes
-    compress: yes
+  unarchive:
+    src: files/wp-content.tgz
+    dest: "{{wpc_install_dir}}"
 
 - name: Synchronize import file
   synchronize:
