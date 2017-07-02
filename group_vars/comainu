@@ -1,8 +1,11 @@
 ---
 # all
-server_name: localhost
-server_port: 3000
-server_url: http://localhost:3000
+# server_name: localhost
+# server_port: 3000
+# server_url: http://localhost:3000
+server_name: comainu.org
+server_port: 80
+server_url: http://comainu.org
 install_dir: /var/www/comainu
 
 # geerlingguy.mysql
