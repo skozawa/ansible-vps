@@ -8,6 +8,7 @@
   synchronize:
     src: "{{wpc_import_sql_file}}"
     dest: /tmp/dump.sql.gz
+    rsync_path: /usr/bin/rsync
 
 - name: Import sql
   mysql_db:
