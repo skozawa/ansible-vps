@@ -1,6 +1,6 @@
 ---
 - name: build and install python packaging tools
-  command: "{{python_bin}}/python setup.py install"
+  command: "{{python_bin}}/python3 setup.py install"
   args:
     chdir: "{{python_sandbox_path}}/{{item.dir}}"
     creates: "{{python_bin}}/{{item.bin}}"
