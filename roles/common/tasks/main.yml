@@ -1,0 +1,18 @@
+---
+- name: Essentials are installed (RedHat).
+  package: "name={{ item }} state=installed"
+  with_items:
+    - ncurses-devel
+    - openssl-devel
+    - zlib-devel
+  when: ansible_os_family == 'RedHat'
+
+- name: Essentials are installed (Debian).
+  apt: "name={{ item }} state=installed"
+  with_items:
+    - build-essential
+    - libbz2-dev
+    - libssl-dev
+    - openssl
+    - zlib1g-dev
+  when: ansible_os_family == 'Debian'
