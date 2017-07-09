@@ -24,4 +24,4 @@
     - role: jdauphant.nginx
     - role: comainu
     - role: wordpress-comainu
-
+    - role: whiskerlabs.python

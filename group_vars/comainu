@@ -65,3 +65,8 @@ wpc_db_name: "{{ wp_db_name }}"
 wpc_db_login_user: "{{ wp_db_user }}"
 wpc_db_login_password: "{{ wp_db_password }}"
 wpc_url: "{{server_url}}"
+
+# whiskerlabs.python
+python_version: 3.6.1
+python_install_root: /opt/python-3.6.1
+python_upgrade_packaging_tools: no
