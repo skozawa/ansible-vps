@@ -34,6 +34,7 @@ http {
 
         include {{ nginx_conf_dir }}/conf.d/*.conf;
         include {{ nginx_conf_dir }}/sites-enabled/*;
+        include /var/www/apps/*/config/nginx.conf;
 }
 
 {% if nginx_stream_params or nginx_stream_configs %}
