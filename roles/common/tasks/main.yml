@@ -5,6 +5,7 @@
     - ncurses-devel
     - openssl-devel
     - zlib-devel
+    - python-pip
   when: ansible_os_family == 'RedHat'
 
 - name: Essentials are installed (Debian).
@@ -15,4 +16,5 @@
     - libssl-dev
     - openssl
     - zlib1g-dev
+    - python-pip
   when: ansible_os_family == 'Debian'

@@ -70,3 +70,6 @@ wpc_url: "{{server_url}}"
 python_version: 3.6.1
 python_install_root: /opt/python-3.6.1
 python_upgrade_packaging_tools: no
+
+# tersmitten.supervisor
+supervisor_include: /var/www/apps/*/config/supervisor.conf

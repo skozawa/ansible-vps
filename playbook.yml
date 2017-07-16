@@ -25,3 +25,4 @@
     - role: comainu
     - role: wordpress-comainu
     - role: whiskerlabs.python
+    - role: tersmitten.supervisor
