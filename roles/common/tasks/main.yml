@@ -17,4 +17,6 @@
     - openssl
     - zlib1g-dev
     - python-pip
+    - libmysqlclient-dev
+    - ntp
   when: ansible_os_family == 'Debian'
